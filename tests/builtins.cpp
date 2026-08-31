@@ -291,4 +291,12 @@ TEST(builtins, argx_in_session_probe)
       "and 'usdt' probes");
 }
 
+TEST(builtins, func_in_session_probe)
+{
+  test("kprobe:sys_* { @entry = __builtin_func } "
+       "kretprobe:sys_* { @exit = __builtin_func }");
+  test("kprobe:sys_read { @entry = __builtin_func } "
+       "kretprobe:sys_read { @exit = __builtin_func }");
+}
+
 } // namespace bpftrace::test::buitins
